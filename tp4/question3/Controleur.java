@@ -11,8 +11,8 @@ import java.awt.event.*;
 /**
  * Décrivez votre classe Controleur ici.
  * 
- * @author (votre nom)
- * @version (un numéro de version ou une date)
+ * @author Rima Ghoulam
+ * @version v0
  */
 public class Controleur extends JPanel {
 
@@ -37,28 +37,51 @@ public class Controleur extends JPanel {
         donnee.addActionListener(null /* null est à remplacer */);
         JPanel boutons = new JPanel();
         boutons.setLayout(new FlowLayout());
-        boutons.add(push);  push.addActionListener(null /* null est à remplacer */);
-        boutons.add(add);   add.addActionListener(null /* null est à remplacer */);
-        boutons.add(sub);   sub.addActionListener(null /* null est à remplacer */);
-        boutons.add(mul);   mul.addActionListener(null /* null est à remplacer */);
-        boutons.add(div);   div.addActionListener(null /* null est à remplacer */);
-        boutons.add(clear); clear.addActionListener(null /* null est à remplacer */);
+        
+        newActionListener a = new newActionListener();
+        boutons.add(push);  push.addActionListener(a);
+        boutons.add(add);   add.addActionListener(a);
+        boutons.add(sub);   sub.addActionListener(a);
+        boutons.add(mul);   mul.addActionListener(a);
+        boutons.add(div);   div.addActionListener(a);
+        boutons.add(clear); clear.addActionListener(a);
         add(boutons);
         boutons.setBackground(Color.red);
         actualiserInterface();
     }
 
     public void actualiserInterface() {
-        // à compléter
+        
+        if(pile.estPleine()) {
+            push.setEnabled(false);
+         }
+        else {
+            push.setEnabled(true);
+         }
+        
+        if(pile.taille() <= 1  )
+        {
+            add.setEnabled(false);
+            sub.setEnabled(false);
+            mul.setEnabled(false);
+            div.setEnabled(false);
+        } 
+        else {
+            add.setEnabled(true);
+            sub.setEnabled(true);
+            mul.setEnabled(true);
+            div.setEnabled(true);
+        }
     }
 
     private Integer operande() throws NumberFormatException {
         return Integer.parseInt(donnee.getText());
     }
 
-    // à compléter
-    // en cas d'exception comme division par zéro, 
-    // mauvais format de nombre suite à l'appel de la méthode operande
-    // la pile reste en l'état (intacte)
-
+    class newActionListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            
+        }
+    }
+    
 }
